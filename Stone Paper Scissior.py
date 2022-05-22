@@ -1,5 +1,6 @@
 import random
 import time
+from pyttsx3 import *
 
 rock=1
 paper=2
@@ -39,11 +40,11 @@ def move():
 
 def result(player, computer):
     print("1...")
-    time.sleep(1)
+    time.sleep(0.25)
     print("2...")
-    time.sleep(1)
+    time.sleep(0.25)
     print("3...")
-    time.sleep(0.5)
+    time.sleep(0.25)
     print("Computer threw {0}".format(name[computer]))
     global  player_score, computer_score
     if player==computer:
@@ -71,6 +72,22 @@ def scores():
     print("HIGH SCORES")
     print("player:", player_score)
     print("Computer:", computer_score)
+    if player_score>computer_score:
+        talk("player won the match by ", player_score, computer_score)
+    elif player_score==computer_score:
+        talk("Match tie", player_score, computer_score)
+    else:
+        talk("Computer won the match by ", computer_score, player_score)
+
+
+def talk(string, score, score1):
+    friend = init()
+    speech =string+"by", score, score1
+    voices = friend.getProperty('voices')
+    friend.setProperty('voice', voices[1].id)
+    friend.say(speech)
+    friend.runAndWait()
+
 
 
 if __name__ =='__main__':
